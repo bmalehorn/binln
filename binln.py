@@ -39,8 +39,9 @@ def link_f(f, force):
     lnk = f.split("/")[-1].split(".")[0]
     lnk_abs_path = os.path.join(BIN_PATH, lnk)
     subprocess.call(["chmod", "u+x", f_abs_path])
-    if os.path.isfile(lnk_abs_path) and force:
-        subprocess.call(["rm", "-v", lnk_abs_path])
-    subprocess.call(["ln", "-sv", f_abs_path, lnk_abs_path])
+    flags = "-sv"
+    if force:
+        flags = "-sfv"
+    subprocess.call(["ln", flags, f_abs_path, lnk_abs_path])
 
 main()
